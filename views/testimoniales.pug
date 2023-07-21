@@ -1,0 +1,60 @@
+extends ./layouts/layout
+
+block contenido
+    main.container.py-5
+        h1.text-center= pagina
+        include ./layouts/testimoniales
+                                    
+        h2.text-center.my-3 Agrega un testimonial 
+        .row.justify-content-center
+            .col-8 
+                form(
+                    action=""
+                    method="POST"
+                    noValidate
+                )
+                    .form-group
+                        label(for="nombre") Nombre
+                        input(
+                            id="nombre" 
+                            type="text" 
+                            placeholder="Escribe tu Nombre" 
+                            class="form-control" 
+                            name="nombre"
+                            value= nombre
+                            )
+                        if errores
+                            each error in errores
+                                if error.path === "nombre"
+                                    p.text-danger.small.ml-3 #{error.msg}
+                    .form-group
+                        label(for="correo") Correo
+                        input(
+                            id="correo" 
+                            type="email" 
+                            placeholder="Escribe tu correo" 
+                            class="form-control"
+                            name="correo"
+                            value= correo
+                            )
+                        if errores
+                            each error in errores
+                                if error.path === "correo"
+                                    p.text-danger.small.ml-3 #{error.msg}                            
+                    .form-group
+                        label(for="mensaje") Mensaje
+                        textarea( 
+                            id="mensaje" 
+                            placeholder="Escribe tu mensaje" 
+                            class="form-control" 
+                            rows="3" 
+                            name="mensaje")= mensaje
+                        if errores
+                            each error in errores
+                                if error.path === "mensaje"
+                                    p.text-danger.small.ml-3 #{error.msg}                                     
+                    input(
+                        type="submit"
+                        value="Enviar"
+                        class="btn btn-success btn-block"
+                    )
